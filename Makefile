@@ -24,6 +24,9 @@ tf_load_graph: tf_load_graph.c
 tf_graph_info: tf_graph_info.c
 	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 
+tf_session: tf_session.c
+	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
+
 clean:
 	rm *.o
 
