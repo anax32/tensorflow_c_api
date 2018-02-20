@@ -1,5 +1,6 @@
 # params for install of tensorflow lib
 INCLUDE_DIR=./include
+LIB_DIR=./lib/libtensorflow
 
 # tensorflow lib location
 TF_TYPE=cpu
@@ -9,15 +10,19 @@ TF_LIB_LOC="https://storage.googleapis.com/tensorflow/libtensorflow/$(TF_LIB_NAM
 
 CC=gcc
 CFLAGS=-I$(INCLUDE_DIR)
+LDFLAGS=-L$(LIB_DIR) -ltensorflow
 
 
 #g++ main.cpp -o main.out -I./include -L./lib/libtensorflow/ -libtensorflow
 
 tf_hello_world: tf_hello_world.c
-	$(CC) $(CFLAGS) -o $@ $^ -L./lib/libtensorflow/ -ltensorflow
+	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 
 tf_load_graph: tf_load_graph.c
-	$(CC) $(CFLAGS) -o $@ $^ -L./lib/libtensorflow/ -ltensorflow
+	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
+
+tf_graph_info: tf_graph_info.c
+	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 
 clean:
 	rm *.o
