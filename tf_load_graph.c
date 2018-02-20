@@ -63,7 +63,7 @@ int main (int argc, char **argv)
   /* check the status */
   if (TF_GetCode (status) != TF_OK)
   {
-    fprintf (stderr, "ERR: Unable to import graph '%s'", TF_Message (status));
+    fprintf (stderr, "ERR: Unable to import graph '%s'\n\0", TF_Message (status));
 
     TF_DeleteStatus (status);
     TF_DeleteGraph (graph);
@@ -71,7 +71,7 @@ int main (int argc, char **argv)
     return 1;
   }
 
-  fprintf (stdout, "SUC: imported graph");
+  fprintf (stdout, "SUC: imported graph\n\0");
 
   TF_DeleteStatus (status);
   TF_DeleteGraph (graph);

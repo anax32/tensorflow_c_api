@@ -1,5 +1,5 @@
 # params for install of tensorflow lib
-INCLUDE_DIR=./include_test
+INCLUDE_DIR=./include
 
 # tensorflow lib location
 TF_TYPE=cpu
@@ -13,8 +13,11 @@ CFLAGS=-I$(INCLUDE_DIR)
 
 #g++ main.cpp -o main.out -I./include -L./lib/libtensorflow/ -libtensorflow
 
-tf_load_graph: main.c
-	$(CC) -o $@ $^ -L./lib/libtensorflow/ -ltensorflow
+tf_hello_world: tf_hello_world.c
+	$(CC) $(CFLAGS) -o $@ $^ -L./lib/libtensorflow/ -ltensorflow
+
+tf_load_graph: tf_load_graph.c
+	$(CC) $(CFLAGS) -o $@ $^ -L./lib/libtensorflow/ -ltensorflow
 
 clean:
 	rm *.o
