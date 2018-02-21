@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "include/tensorflow/c/c_api.h"
+#include "tensorflow/c/c_api.h"
 
 void free_buffer (void* data, size_t length)
 {
