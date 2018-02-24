@@ -41,7 +41,7 @@ tf_load_graph: $(SRC_DIR)tf_load_graph.c $(OUT_DIR)
 tf_graph_info: $(SRC_DIR)tf_graph_info.c $(OUT_DIR)
 	$(CC) $(CFLAGS) -o $(OUT_DIR)$@ $< $(LDFLAGS)
 
-tf_session: $(SRC_DIR)/tf_session.c $(OUT_DIR)
+tf_session: $(SRC_DIR)tf_session.c $(OUT_DIR)
 	$(CC) $(CFLAGS) -o $(OUT_DIR)$@ $< $(LDFLAGS)
 
 ### DOWNLOAD AND UNPACK TENSORFLOW C API LIB ###
