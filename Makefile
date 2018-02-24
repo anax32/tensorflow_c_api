@@ -44,6 +44,9 @@ tf_graph_info: $(SRC_DIR)tf_graph_info.c $(OUT_DIR)
 tf_session: $(SRC_DIR)tf_session.c $(OUT_DIR)
 	$(CC) $(CFLAGS) -o $(OUT_DIR)$@ $< $(LDFLAGS)
 
+tf_tensor: $(SRC_DIR)tf_tensor.c $(OUT_DIR)
+	$(CC) $(CFLAGS) -o $(OUT_DIR)$@ $< $(LDFLAGS)
+
 ### DOWNLOAD AND UNPACK TENSORFLOW C API LIB ###
 $(TF_LIB_NAME):
 	curl $(TF_LIB_LOC) > $(TF_LIB_NAME)
@@ -62,4 +65,4 @@ tensorflow.lib: tensorflow.def
 	 lib /def:$(LIB_DIR)$< /OUT:$(LIB_DIR)$@ /MACHINE:x64
 
 ### ALL ###
-all: tf_hello_world tf_load_graph tf_graph_info tf_session
+all: tf_hello_world tf_load_graph tf_graph_info tf_session tf_tensor
