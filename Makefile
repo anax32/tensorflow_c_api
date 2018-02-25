@@ -6,6 +6,7 @@ OUT_DIR=./bin/
 
 # tensorflow lib location
 TF_TYPE=cpu
+TF_VERSION=1.5.0
 
 ifeq ($(OS),Windows_NT)
 	OS_NAME=windows
@@ -19,7 +20,7 @@ else
 	UNPACK_CMD=tar -xvf
 endif
 
-TF_LIB_NAME=libtensorflow-$(TF_TYPE)-$(OS_NAME)-x86_64-1.5.0.$(EXTN)
+TF_LIB_NAME=libtensorflow-$(TF_TYPE)-$(OS_NAME)-x86_64-$(TF_VERSION).$(EXTN)
 TF_LIB_LOC="https://storage.googleapis.com/tensorflow/libtensorflow/$(TF_LIB_NAME)"
 
 CC=gcc
@@ -47,6 +48,12 @@ tf_session: $(SRC_DIR)tf_session.c $(OUT_DIR)
 tf_tensor: $(SRC_DIR)tf_tensor.c $(OUT_DIR)
 	$(CC) $(CFLAGS) -o $(OUT_DIR)$@ $< $(LDFLAGS)
 
+tf_graph_tensors: $(SRC_DIR)tf_graph_tensors.c $(OUT_DIR)
+	$(CC) $(CFLAGS) -o $(OUT_DIR)$@ $< $(LDFLAGS)
+
+tf_infer: $(SRC_DIR)tf_infer.c $(OUT_DIR)
+	$(CC) $(CFLAGS) -o $(OUT_DIR)$@ $< $(LDFLAGS) -lpng
+
 ### DOWNLOAD AND UNPACK TENSORFLOW C API LIB ###
 $(TF_LIB_NAME):
 	curl $(TF_LIB_LOC) > $(TF_LIB_NAME)
@@ -65,4 +72,4 @@ tensorflow.lib: tensorflow.def
 	 lib /def:$(LIB_DIR)$< /OUT:$(LIB_DIR)$@ /MACHINE:x64
 
 ### ALL ###
-all: tf_hello_world tf_load_graph tf_graph_info tf_session tf_tensor
+all: tf_hello_world tf_load_graph tf_graph_info tf_session tf_tensor tf_graph_tensors
