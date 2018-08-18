@@ -2,43 +2,7 @@
 #include <stdlib.h>
 #include "tensorflow/c/c_api.h"
 
-void free_buffer (void* data, size_t length)
-{
-  free (data);
-}
-
-TF_Buffer* read_file (const char* file)
-{
-  FILE *f = NULL;
-  long fsize = 0;
-  void *data = NULL;
-  TF_Buffer* buf = NULL;
-
-  if ((f = fopen(file, "rb")) == NULL)
-  {
-    return NULL;
-  }
-
-  fseek (f, 0, SEEK_END);
-  fsize = ftell (f);
-  fseek (f, 0, SEEK_SET);
-
-  if (fsize < 1)
-  {
-    fclose (f);
-    return NULL;
-  }
-
-  data = malloc (fsize);
-  fread (data, fsize, 1, f);
-  fclose (f);
-
-  buf = TF_NewBuffer ();
-  buf->data = data;
-  buf->length = fsize;
-  buf->data_deallocator = free_buffer;
-  return buf;
-}
+#include "tf_utils.h"
 
 int run_session (TF_Graph* graph)
 {
@@ -107,7 +71,7 @@ int main (int argc, char **argv)
   TF_Status* status = NULL;
   TF_ImportGraphDefOptions* opts = NULL;
 
-  if ((graph_def = read_file (argv[1])) == NULL)
+  if ((graph_def = buffer_read_from_file (argv[1])) == NULL)
   {
     return 1;
   }
